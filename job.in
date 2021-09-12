@@ -1,0 +1,34 @@
+#!/bin/bash -l
+#SBATCH --constraint=knl
+#SBATCH --cpus-per-task=1
+#SBATCH --qos=debug
+#SBATCH --nodes=1
+#SBATCH --time=00:04:00
+#SBATCH --cpu-freq=1400000
+#SBATCH --job-name=job-@BENCHMARK@
+#SBATCH --output=job-@BENCHMARK@.o%j
+#SBATCH --error=job-@BENCHMARK@.e%j
+
+# set some openmp variables: 
+# OMP_PLACES=threads maps OpenMP threads to hardware threads
+# OMP_PROC_BIND=spread binds threads as evenly as possible
+#
+# see https://docs.nersc.gov/jobs/affinity/ for more information
+
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+# iterate over some number of threads. You will need to modify this for HW3 to reflect
+# the levels of concurrency in the assignment
+
+# Note: only OpenMP codes have interaction with the OMP_NUM_THREADS env variable, 
+# non-OpenMP jobs are not affected 
+
+setting OMP_NUM_THREADS=t where t > 1 has no effect on non-OpenMP jobs
+
+for t in 1 2 4
+   do
+   export OMP_NUM_THREADS=$t
+   srun -n 1 --cpu-bind=threads ./benchmark-@BENCHMARK@
+done
+
