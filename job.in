@@ -36,5 +36,8 @@ for t in 1 2 4
    do
    export OMP_NUM_THREADS=$t
    srun -n 1 --cpu-bind=threads ./benchmark-@BENCHMARK@
+# don't use --cpu-bind=threads on KNL when P % 272 != 0
+# see https://docs.nersc.gov/jobs/affinity/#slurm-cpu-bind-flag
+#   srun -n 1 --cpu-bind=threads ./benchmark-@BENCHMARK@
 done
 
