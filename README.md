@@ -7,7 +7,7 @@ The main code is benchmark.cpp, which sets up the problem, iterates over problem
 sizes, sets up the vector and matrix, executes the vmmul call, and tests the
 result for accuracy by comparing your result against a reference implementation (CBLAS).
 
-Note that cmake needs to be able to find the CBLAS package. For CSC 746 Fall 2021,
+Note that cmake needs to be able to find the CBLAS package. For CSC 746 Fall 2022,
 this condition is true on Cori@NERSC and on the class VM. It is also true for some
 other platforms, but you are on your own if using a platform other than Cori@NERSC
 or the class VM.
@@ -67,7 +67,9 @@ There are stub routines inside dgemv-basic.cpp and dgemv-openmp.cpp where you ca
 add your code for doing basic and OpenMP-parallel vector-matrix multiply, respectively.
 
 For the OpenMP parallel code, note that you specify concurrency at runtime using
-the OMP_NUM_THREADS environment variable. It is not something you set at compile time.
+the OMP_NUM_THREADS environment variable. While it is possible to set the number of
+concurrent OpenMP threads at compile time, it is generally considered better practice to
+specify the number of OpenMP threads via the OMP_NUM_THREADS environment variable.
 
 
 # Running the codes
