@@ -18,21 +18,18 @@
 export OMP_PLACES=threads
 export OMP_PROC_BIND=spread
 
-# iterate over some number of threads. You will need to modify this for HW3 to reflect
-# the levels of concurrency in the assignment
+# iterate over some number of threads. 
 
 # Note: only OpenMP codes have interaction with the OMP_NUM_THREADS env variable, 
 # non-OpenMP jobs are not affected 
 
-# setting OMP_NUM_THREADS=t has no effect on non-OpenMP jobs
-
 # make use of the OMP_SCHEDULE environment variable to set the thread scheduling 
-# algorithm. HW3 asks you to compare static and dynamic scheduling, so select one
-# of these two to select a specific thread scheduling algorithm:
+# algorithm. 
+# the default scheduling algorithm is static
 # export OMP_SCHEDULE=static
 # export OMP_SCHEDULE=dynamic
 
-for t in 1 2 4
+for t in 1 4 8
    do
    export OMP_NUM_THREADS=$t
    srun -n 1  ./benchmark-@BENCHMARK@
