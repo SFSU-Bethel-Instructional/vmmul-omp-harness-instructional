@@ -70,7 +70,7 @@ report FLOPs executed, and so forth.
 
 For vector-matrix multiplication:
 
-There are stub routines inside dgemv-basic.cpp, dgemv-blocked, dgemv-vectorized, and dgemv-openmp.cpp where you can add your code for doing basic, blocked, vectorized, and OpenMP-parallel vector-matrix multiply, respectively.
+There are stub routines inside dgemv-basic.cpp, dgemv-vectorized.cpp, and dgemv-openmp.cpp where you can add your code for doing basic, vectorized, and OpenMP-parallel vector-matrix multiply, respectively.
 
 For the OpenMP parallel code, note that you specify concurrency at runtime using
 the OMP_NUM_THREADS environment variable. While it is possible to set the number of
@@ -80,12 +80,14 @@ specify the number of OpenMP threads via the OMP_NUM_THREADS environment variabl
 
 # Running the codes
 
-Some sample job scripts are provided as part of the harness. In principle, you should be able to use
-them to launch batch jobs that run your code. You will probably need to make some adjustments
-to these scripts for your particular testing workflow.
+There is a sample job script provided for running the OpenMP code at 3 levels of concurrency: 1, 4, 8 threads. You may launch that script either as a batch job using the sbatch command, or you may run it as a shell script from an interactive node (preferred).
 
-These sample job scripts have some reference values and tips for managing OpenMP-related
-environment variables that are relevant to HW3 and Cori@NERSC.
+For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node by typing:
 
+   % srun ./benchmark-basic  
+   or  
+   % srun ./benchmark-vectorized  
+   or  
+   % srun ./benchmark-blas
 
 #eof
