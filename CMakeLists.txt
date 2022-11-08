@@ -33,7 +33,7 @@ target_compile_features(benchmark-vectorized PRIVATE c_std_11 c_restrict)
 # the following line is for GCC.
 #target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic -O3 -march=knl -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
 # the following line is for ICC, the Intel compiler. It does a better job of generating AVX512 instructions than GCC. this line will generate a vectorization report that lands in a file named dgemv-vectorized.cpp.optrpt
-target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic -march=native -O3 -qopt-report=2 -qopt-report-phase=vec)
+target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic -O2 -xMIC-AVX512 -qopt-report=2 -qopt-report-phase=vec)
 
 #set(BENCHMARK "vectorized")
 #configure_file(job.in job-${BENCHMARK})
