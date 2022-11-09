@@ -95,7 +95,7 @@ int main(int argc, char** argv)
         // call the method to do the work
         my_dgemv(n, A, X, Y); 
 
-        // insert end timer code here
+        // insert end timer code here, and print out the elapsed time for this problem size
 
 
         // now invoke the cblas method to compute the matrix-vector multiplye
