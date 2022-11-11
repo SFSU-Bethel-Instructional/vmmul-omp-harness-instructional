@@ -7,13 +7,17 @@ set(CMAKE_BUILD_TYPE "Release")
 
 find_package(BLAS REQUIRED)
 
-# We require the Intel compiler for this assignment.
-if (NOT "${CMAKE_C_COMPILER_ID}" STREQUAL "Intel")
-#    set(Prg-Intel "PrgEnv-intel")
-#    set(Prg-Clang "PrgEnv-cray")
-    message(WARNING
-            "Must use Intel Compiler for building, testing, and submission.. Make sure you ran:\n"
-            "module swap ${Prg-${CMAKE_C_COMPILER_ID}} PrgEnv-intel")
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+   message(STATUS "setting vector flags for gcc compiler = " ${CMAKE_C_COMPILER_ID})
+   set(VFLAGS  -O2 -march=knl -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
+#   message(STATUS "vectorization flags for gcc compiler are" ${VFLAGS})
+endif ()
+
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Intel")
+   message(STATUS "setting vector flags for icc compiler = " ${CMAKE_C_COMPILER_ID})
+# the following line is for ICC, the Intel compiler. It does a better job of generating AVX512 instructions than GCC. this line will generate a vectorization report that lands in a file named dgemv-vectorized.cpp.optrpt
+   set(VFLAGS -O2 -xMIC-AVX512 -qopt-report=2 -qopt-report-phase=vec)
+#   message(STATUS "vectorization flags for icc compiler are" ${VectorizationFlags})
 endif ()
 
 # Common library target for benchmarking.
@@ -24,26 +28,16 @@ add_executable(benchmark-basic dgemv-basic.cpp)
 target_link_libraries(benchmark-basic PRIVATE benchmark ${BLAS_LIBRARIES})
 target_compile_features(benchmark-basic PRIVATE c_std_11 c_restrict)
 target_compile_options(benchmark-basic PRIVATE -Wall -pedantic -march=native -O1)
-#set(BENCHMARK "basic")
-#configure_file(job.in job-${BENCHMARK})
 
 add_executable(benchmark-vectorized dgemv-vectorized.cpp)
 target_link_libraries(benchmark-vectorized PRIVATE benchmark ${BLAS_LIBRARIES})
 target_compile_features(benchmark-vectorized PRIVATE c_std_11 c_restrict)
-# the following line is for GCC.
-#target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic -O3 -march=knl -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
-# the following line is for ICC, the Intel compiler. It does a better job of generating AVX512 instructions than GCC. this line will generate a vectorization report that lands in a file named dgemv-vectorized.cpp.optrpt
-target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic -O2 -xMIC-AVX512 -qopt-report=2 -qopt-report-phase=vec)
-
-#set(BENCHMARK "vectorized")
-#configure_file(job.in job-${BENCHMARK})
+target_compile_options(benchmark-vectorized PRIVATE -Wall -pedantic ${VFLAGS} ) 
 
 add_executable(benchmark-blas dgemv-blas.cpp)
 target_link_libraries(benchmark-blas PRIVATE benchmark ${BLAS_LIBRARIES})
 target_compile_features(benchmark-blas PRIVATE c_std_11 c_restrict)
 target_compile_options(benchmark-blas PRIVATE -Wall -pedantic -march=native)
-#set(BENCHMARK "blas")
-#configure_file(job.in job-${BENCHMARK})
 
 add_executable(benchmark-openmp dgemv-openmp.cpp)
 target_link_libraries(benchmark-openmp PRIVATE benchmark ${BLAS_LIBRARIES})
