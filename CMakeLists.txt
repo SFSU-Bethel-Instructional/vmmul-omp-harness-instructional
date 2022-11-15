@@ -9,7 +9,8 @@ find_package(BLAS REQUIRED)
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
    message(STATUS "setting vector flags for gcc compiler = " ${CMAKE_C_COMPILER_ID})
-   set(VFLAGS  -O2 -march=knl -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
+   set(VFLAGS  -O3 -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
+#   set(VFLAGS  -O2 -march=knl -mprefer-vector-width=512 -mavx512f -mavx512cd -fopt-info-vec-all=report.txt)
 #   message(STATUS "vectorization flags for gcc compiler are" ${VFLAGS})
 endif ()
 
@@ -19,6 +20,14 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Intel")
    set(VFLAGS -O2 -xMIC-AVX512 -qopt-report=2 -qopt-report-phase=vec)
 #   message(STATUS "vectorization flags for icc compiler are" ${VectorizationFlags})
 endif ()
+
+# clang compiler stuff not ready yet
+#if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+#   message(STATUS "setting vector flags for clang++ compiler = " ${CMAKE_C_COMPILER_ID})
+#   set(VFLAGS -O3 -fvectorize -ftree-vectorize  -mprefer-vector-width=512 -Rpass-analysis=loop-vectorize  -fsave-optimization-record -ffast-math)
+#   set(VFLAGS -O2 -fvectorize -mprefer-vector-width=512 -Rpass=vector)
+#
+#endif ()
 
 # Common library target for benchmarking.
 add_library(benchmark OBJECT benchmark.cpp)
