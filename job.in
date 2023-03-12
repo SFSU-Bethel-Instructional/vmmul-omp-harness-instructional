@@ -1,10 +1,9 @@
 #!/bin/bash -l
-#SBATCH --constraint=knl
+#SBATCH --constraint=gpu
 #SBATCH --cpus-per-task=1
-#SBATCH --qos=debug
+#SBATCH --qos=interactive
 #SBATCH --nodes=1
 #SBATCH --time=00:04:00
-#SBATCH --cpu-freq=1400000
 #SBATCH --job-name=job-@BENCHMARK@
 #SBATCH --output=job-@BENCHMARK@.o%j
 #SBATCH --error=job-@BENCHMARK@.e%j

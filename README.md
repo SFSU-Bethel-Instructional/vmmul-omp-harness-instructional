@@ -8,37 +8,25 @@ sizes, sets up the vector and matrix, executes the vmmul call, and tests the
 result for accuracy by comparing your result against a reference implementation (CBLAS).
 
 Note that cmake needs to be able to find the CBLAS package. For CSC 746/656 Fall 2022,
-this condition is true on Cori@NERSC and on the class VM. It is also true for some
-other platforms, but you are on your own if using a platform other than Cori@NERSC
+this condition is true on Perlmutter@NERSC and on the class VM. It is also true for some
+other platforms, but you are on your own if using a platform other than Perlmutter@NERSC
 or the class VM.
+
+<br></br>
 
 # Build instructions - general
 
 After downloading, cd into the main source directly, then:
 
-% mkdir build  
-% cd build  
-% cmake ../  
+> mkdir build  
+> cd build  
+> cmake ../  
 
-Before these commands actually work, you may need to make some adjustments to your environment.
-Below is information for Cori@NERSC, and for MacOS systems.
+When building on Perlmutter, make sure you are on a GPU node when doing the compilation. Compiling and running your code on Perlmutter Login nodes is not recommended. The simplest way to do this is
+grab an interactive GPU node by running the below command after logging into Perlmutter:  
+> salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=gpu --account=m3930
 
-# Build peculiarities on Cori@NERSC
-
-When building on Cori, make sure you are on a KNL node when doing the compilation. The
-Cori login nodes are *not* KNL nodes, the Cori login nodes have Intel Xeon E5-2698
-processors, not the Intel Xeon Phi 7250 (KNL) processors.  The simplest way to do this is
-grab an interactive KNL node:  
-
-salloc --nodes 1 --qos interactive --time 01:00:00 --constraint knl --account m3930
-
-Also on Cori:
-
-- cmake version: you need to use cmake/3.14 or higher. By default, Cori's cmake is cmake/3.17.0, 
-which should be fine for this project.
-
-- Programming environment. You need to use the Cray-Gnu compilers for this assignment. To access
-them, please type "module swap PrgEnv-intel PrgEnv-gnu" on the command line.
+<br></br>
 
 # Build peculiarities for MacOSX platforms:
 
@@ -58,7 +46,7 @@ then clean your build directory (rm -rf * inside build) and run cmake again.
 Note you will need to "locate cblas.h" on your machine and replace the path to cblas.h
 in the CXXFLAGS line above with the path on your specific machine.
 
-
+<br></br>
 
 # Adding your code
 
@@ -77,6 +65,7 @@ the OMP_NUM_THREADS environment variable. While it is possible to set the number
 concurrent OpenMP threads at compile time, it is generally considered better practice to
 specify the number of OpenMP threads via the OMP_NUM_THREADS environment variable.
 
+<br></br>
 
 # Running the codes
 
@@ -84,10 +73,10 @@ There is a sample job script provided for running the OpenMP code at 3 levels of
 
 For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node by typing:
 
-   % srun ./benchmark-basic  
+   `srun ./benchmark-basic`  
    or  
-   % srun ./benchmark-vectorized  
+   `srun ./benchmark-vectorized`  
    or  
-   % srun ./benchmark-blas
+   `srun ./benchmark-blas`
 
 #eof
