@@ -5,6 +5,9 @@ message(STATUS "compiler = " ${CMAKE_C_COMPILER_ID})
 
 set(CMAKE_BUILD_TYPE "Release")
 
+# set default optimization level to -O0, but override in specific cases below
+set(CMAKE_CXX_FLAGS_RELEASE "-O0")
+
 find_package(BLAS REQUIRED)
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
