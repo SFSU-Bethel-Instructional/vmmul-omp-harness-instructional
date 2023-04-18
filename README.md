@@ -16,11 +16,17 @@ or the class VM.
 
 # Build instructions - general
 
-After downloading, cd into the main source directly, then:
+After downloading the code, you may first need to make modifications to your environment to access the correct compilers. See below for more information.
+
+Once your environment is set up, then cd into the main source directly, then:
 
 > mkdir build  
 > cd build  
 > cmake ../  
+
+When building on Cori, you may do compilations and brief runs on a login node. Load the PrgEnv-intel module first to set up your environment:
+
+> module load PrgEnv-intel
 
 When building on Perlmutter, make sure you are on a GPU node when doing the compilation. Compiling and running your code on Perlmutter Login nodes is not recommended. The simplest way to do this is
 grab an interactive GPU node by running the below command after logging into Perlmutter:  
