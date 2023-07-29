@@ -1,4 +1,4 @@
-# vmmul instructional test harness
+# vmmul omp instructional test harness
 
 This directory contains a benchmark harness for testing different implementations of
 vector-matrix multiply (VMM) for varying problem sizes.
