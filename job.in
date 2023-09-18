@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --constraint=gpu
+#SBATCH --constraint=cpu
 #SBATCH --cpus-per-task=1
 #SBATCH --qos=interactive
 #SBATCH --nodes=1
@@ -28,9 +28,10 @@ export OMP_PROC_BIND=spread
 # export OMP_SCHEDULE=static
 # export OMP_SCHEDULE=dynamic
 
-for t in 1 4 8
+for t in 1 4 16 64
    do
    export OMP_NUM_THREADS=$t
+   echo "OMP_NUM_THREASDS = " $OMP_NUM_THREADS
    srun -n 1  ./benchmark-@BENCHMARK@
 # don't use --cpu-bind=threads on KNL when P % 272 != 0
 # see https://docs.nersc.gov/jobs/affinity/#slurm-cpu-bind-flag
