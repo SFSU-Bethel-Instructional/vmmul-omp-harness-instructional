@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(hw2 LANGUAGES C CXX)
+project(cp3 LANGUAGES C CXX)
 
 message(STATUS "compiler = " ${CMAKE_C_COMPILER_ID})
 
