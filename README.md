@@ -66,6 +66,8 @@ which on Prof. Bethel's laptop produces the following output:
 Use the path to the newest headers, here the MacOSX11.3.sdk version:
 > export CXXFLAGS = "-I /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/"
 
+Then clean your build directory, and rerun cmake then make.
+
 <br></br>
 
 # Adding your code
