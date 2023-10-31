@@ -95,14 +95,14 @@ There is a sample job script provided for running the OpenMP code at 4 levels of
 
 For the run as a shell script on an interactive CPU node:
 
-> sh ./job-openmp
+    bash ./job-openmp
 
 For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node by typing:
 
-   `srun ./benchmark-basic`  
-   or  
-   `srun ./benchmark-vectorized`  
-   or  
-   `srun ./benchmark-blas`
+    ./benchmark-basic  
+or  
+    ./benchmark-vectorized  
+or  
+    ./benchmark-blas  
 
 #eof
