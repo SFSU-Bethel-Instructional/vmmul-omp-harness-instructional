@@ -14,26 +14,24 @@ or the class VM.
 
 <br></br>
 
-# Build instructions - general
+# Build and run instructions for Perlmutter
 
-After downloading the code, you may first need to make modifications to your environment to access the correct compilers. See below for more information.
+After logging in to Perlmutter, first set up your environment by typing this command:
 
-Once your environment is set up, then cd into the main source directly, then:
+    module load cpu  
 
-> mkdir build  
-> cd build  
-> cmake ../  
+Then, build the code. First, cd into the main source directory (vmmul-omp-harness-instructional) and then enter the following commands:
 
-When building on Perlmutter, you may do compilations and brief runs on a login node.  First, 
-set up your environment to use Perlmutter CPU nodes:
+    mkdir build  
+    cd build  
+    cmake ../  
 
-> module load cpu
-
+After building the codes, it is ok to do very brief runs on login nodes for debug purposes.
 Here, "brief" means < 10 second runs.
 
 When you are ready to do builds/runs on a Perlmutter CPU node, use the salloc command to hop onto a CPU node:
 
-> salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=cpu --account=m3930
+    salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=cpu --account=m3930
 
 <br></br>
 
@@ -97,7 +95,7 @@ For the run as a shell script on an interactive CPU node:
 
     bash ./job-openmp
 
-For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node by typing:
+For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node from your build directoy by typing:
 
     ./benchmark-basic  
 or  
