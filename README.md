@@ -46,9 +46,13 @@ From the build directory, run as a shell script on an interactive CPU node:
 For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node from your build directoy by typing:
 
     ./benchmark-basic  
+
 or  
-    ./benchmark-vectorized  
+
+    ./benchmark-vectorized   
+
 or  
+
     ./benchmark-blas  
 
 # Build peculiarities for MacOSX platforms:
@@ -63,7 +67,9 @@ Xcode installed, cmake (version 3.20.1) can find the BLAS package, but then the 
 an error about g++ not being able to find cblas.h.
 
 The workaround is to tell cmake where cblas.h lives by using an environment variable:
+
     export CXXFLAGS="-I /path/to/headers"  
+
 then clean your build directory (rm -rf * inside build) and run cmake again.  Note: you  need to replace /path/to/headers with
 the full path to the directory containing the cblas.h header on your machine.
 
