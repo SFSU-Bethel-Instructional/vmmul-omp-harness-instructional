@@ -63,22 +63,28 @@ Xcode installed, cmake (version 3.20.1) can find the BLAS package, but then the 
 an error about g++ not being able to find cblas.h.
 
 The workaround is to tell cmake where cblas.h lives by using an environment variable:
-export CXXFLAGS="-I /path/to/headers"
-then clean your build directory (rm -rf * inside build) and run cmake again. 
+    export CXXFLAGS="-I /path/to/headers"  
+then clean your build directory (rm -rf * inside build) and run cmake again.  Note: you  need to replace /path/to/headers with
+the full path to the directory containing the cblas.h header on your machine.
 
 Note you will need to "locate cblas.h" on your machine and replace the path to cblas.h
 in the CXXFLAGS line above with the path on your specific machine.
 
-Run the command:
-> locate cblas.h
+Run the command:  
+
+    locate cblas.h  
+
 which on Prof. Bethel's laptop produces the following output:
 
-> /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h
-> /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h
-> /usr/local/Cellar/openblas/0.3.23/include/cblas.h
+    /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h  
+    /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h  
+    /usr/local/Cellar/openblas/0.3.23/include/cblas.h 
+
+
 
 Use the path to the newest headers, here the MacOSX11.3.sdk version:
-> export CXXFLAGS = "-I /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/"
+    
+    export CXXFLAGS = "-I /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/"   
 
 Then clean your build directory, and rerun cmake then make.
 
