@@ -14,7 +14,7 @@ or the class VM.
 
 <br></br>
 
-# Build and run instructions for Perlmutter
+# Build instructions for Perlmutter
 
 After logging in to Perlmutter, first set up your environment by typing this command:
 
@@ -26,6 +26,10 @@ Then, build the code. First, cd into the main source directory (vmmul-omp-harnes
     cd build  
     cmake ../  
 
+<br></br>
+
+# Running the codes on Perlmutter
+
 After building the codes, it is ok to do very brief runs on login nodes for debug purposes.
 Here, "brief" means < 10 second runs.
 
@@ -33,7 +37,19 @@ When you are ready to do builds/runs on a Perlmutter CPU node, use the salloc co
 
     salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=cpu --account=m3930
 
-<br></br>
+There is a sample job script provided in the code harness for running the OpenMP code at 4 levels of concurrency: 1, 4, 16, 64 threads. You may launch that script either as a batch job using the sbatch command, or you may run it as a shell script from an interactive node (preferred).
+
+From the build directory, run as a shell script on an interactive CPU node:
+
+    bash ./job-openmp
+
+For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node from your build directoy by typing:
+
+    ./benchmark-basic  
+or  
+    ./benchmark-vectorized  
+or  
+    ./benchmark-blas  
 
 # Build peculiarities for MacOSX platforms:
 
@@ -86,21 +102,5 @@ concurrent OpenMP threads at compile time, it is generally considered better pra
 specify the number of OpenMP threads via the OMP_NUM_THREADS environment variable.
 
 <br></br>
-
-# Running the codes
-
-There is a sample job script provided for running the OpenMP code at 4 levels of concurrency: 1, 4, 16, 64 threads. You may launch that script either as a batch job using the sbatch command, or you may run it as a shell script from an interactive node (preferred).
-
-For the run as a shell script on an interactive CPU node:
-
-    bash ./job-openmp
-
-For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node from your build directoy by typing:
-
-    ./benchmark-basic  
-or  
-    ./benchmark-vectorized  
-or  
-    ./benchmark-blas  
 
 #eof
