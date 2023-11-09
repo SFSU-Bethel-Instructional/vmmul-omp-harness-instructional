@@ -14,17 +14,21 @@ or the class VM.
 
 <br></br>
 
-# Build instructions for Perlmutter
+# Build instructions for Perlmutter and the VM
 
-After logging in to Perlmutter, first set up your environment by typing this command:
+Perlmutter only: After logging in to Perlmutter, first set up your environment by typing this command:
 
     module load cpu  
+
+On the VM: no special environment setup is needed
+
 
 Then, build the code. First, cd into the main source directory (vmmul-omp-harness-instructional) and then enter the following commands:
 
     mkdir build  
     cd build  
     cmake ../  
+    make  
 
 <br></br>
 
