@@ -14,7 +14,7 @@ void my_dgemv(int n, double *A, double *x, double *y)
       int offset = row * n;
       for (int column = 0; column < n; column++)
       {
-         y[offset + column] += A[row * n + column] * x[column];
+         y[row] += A[offset + column] * x[column];
       }
    }
 }

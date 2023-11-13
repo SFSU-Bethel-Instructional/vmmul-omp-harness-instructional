@@ -102,6 +102,18 @@ int main(int argc, char **argv)
 
     double duration = std::chrono::duration<double>(end - start).count();
 
+    double capacity = 204.8e9;
+
+    double mflops = (n / 1e6) / duration;
+
+    double bytes = n * sizeof(uint64_t);
+
+    double memoryBandwidthUtilized = ((((bytes / 1e9) / duration) / capacity) * 100) * 1e9; // % of memory bandwidth utilized
+
+    double accesses = n;
+
+    std::cout << mflops << " " << memoryBandwidthUtilized;
+
     // now invoke the cblas method to compute the matrix-vector multiplye
     reference_dgemv(n, Acopy, Xcopy, Ycopy);
 
