@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 
     double capacity = 204.8e9;
 
-    double mflops = (n / 1e6) / duration;
+    double mflops = 2 * n * n / 1e6 / duration;
 
     double bytes = n * sizeof(uint64_t);
 
@@ -112,7 +112,12 @@ int main(int argc, char **argv)
 
     double accesses = n;
 
-    std::cout << mflops << " " << memoryBandwidthUtilized;
+    std::cout << "Time elapsed:"
+              << " " << duration;
+
+    std::cout << "MFLOP/s: " << mflops;
+
+    std::cout << "% Memory bandwidth utilized: " << memoryBandwidthUtilized;
 
     // now invoke the cblas method to compute the matrix-vector multiplye
     reference_dgemv(n, Acopy, Xcopy, Ycopy);
