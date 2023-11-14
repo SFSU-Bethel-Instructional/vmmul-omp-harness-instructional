@@ -14,28 +14,50 @@ or the class VM.
 
 <br></br>
 
-# Build instructions - general
+# Build instructions for Perlmutter and the VM
 
-After downloading the code, you may first need to make modifications to your environment to access the correct compilers. See below for more information.
+Perlmutter only: After logging in to Perlmutter, first set up your environment by typing this command:
 
-Once your environment is set up, then cd into the main source directly, then:
+    module load cpu  
 
-> mkdir build  
-> cd build  
-> cmake ../  
+On the VM: no special environment setup is needed
 
-When building on Perlmutter, you may do compilations and brief runs on a login node.  First, 
-set up your environment to use Perlmutter CPU nodes:
 
-> module load cpu
+Then, build the code. First, cd into the main source directory (vmmul-omp-harness-instructional) and then enter the following commands:
 
+    mkdir build  
+    cd build  
+    cmake ../  
+    make  
+
+<br></br>
+
+# Running the codes on Perlmutter
+
+After building the codes, it is ok to do very brief runs on login nodes for debug purposes.
 Here, "brief" means < 10 second runs.
 
 When you are ready to do builds/runs on a Perlmutter CPU node, use the salloc command to hop onto a CPU node:
 
-> salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=cpu --account=m3930
+    salloc --nodes=1 --qos=interactive --time=00:15:00 --constraint=cpu --account=m3930
 
-<br></br>
+There is a sample job script provided in the code harness for running the OpenMP code at 4 levels of concurrency: 1, 4, 16, 64 threads. You may launch that script either as a batch job using the sbatch command, or you may run it as a shell script from an interactive node (preferred).
+
+From the build directory, run as a shell script on an interactive CPU node:
+
+    bash ./job-openmp
+
+For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node from your build directoy by typing:
+
+    ./benchmark-basic  
+
+or  
+
+    ./benchmark-vectorized   
+
+or  
+
+    ./benchmark-blas  
 
 # Build peculiarities for MacOSX platforms:
 
@@ -49,22 +71,30 @@ Xcode installed, cmake (version 3.20.1) can find the BLAS package, but then the 
 an error about g++ not being able to find cblas.h.
 
 The workaround is to tell cmake where cblas.h lives by using an environment variable:
-export CXXFLAGS="-I /path/to/headers"
-then clean your build directory (rm -rf * inside build) and run cmake again. 
+
+    export CXXFLAGS="-I /path/to/headers"  
+
+then clean your build directory (rm -rf * inside build) and run cmake again.  Note: you  need to replace /path/to/headers with
+the full path to the directory containing the cblas.h header on your machine.
 
 Note you will need to "locate cblas.h" on your machine and replace the path to cblas.h
 in the CXXFLAGS line above with the path on your specific machine.
 
-Run the command:
-> locate cblas.h
+Run the command:  
+
+    locate cblas.h  
+
 which on Prof. Bethel's laptop produces the following output:
 
-> /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h
-> /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h
-> /usr/local/Cellar/openblas/0.3.23/include/cblas.h
+    /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h  
+    /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/cblas.h  
+    /usr/local/Cellar/openblas/0.3.23/include/cblas.h 
+
+
 
 Use the path to the newest headers, here the MacOSX11.3.sdk version:
-> export CXXFLAGS = "-I /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/"
+    
+    export CXXFLAGS = "-I /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers/"   
 
 Then clean your build directory, and rerun cmake then make.
 
@@ -88,21 +118,5 @@ concurrent OpenMP threads at compile time, it is generally considered better pra
 specify the number of OpenMP threads via the OMP_NUM_THREADS environment variable.
 
 <br></br>
-
-# Running the codes
-
-There is a sample job script provided for running the OpenMP code at 4 levels of concurrency: 1, 4, 16, 64 threads. You may launch that script either as a batch job using the sbatch command, or you may run it as a shell script from an interactive node (preferred).
-
-For the run as a shell script on an interactive CPU node:
-
-    bash ./job-openmp
-
-For the other codes -- benchmark-blas, benchmark-basic, and benchmark-vectorized -- it is easiest to run these from the command line from an interactive node by typing:
-
-    ./benchmark-basic  
-or  
-    ./benchmark-vectorized  
-or  
-    ./benchmark-blas  
 
 #eof

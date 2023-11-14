@@ -117,7 +117,12 @@ int main(int argc, char **argv)
 
     std::cout << "MFLOP/s: " << mflops << "\n";
 
+<<<<<<< HEAD
     std::cout << "% Memory bandwidth utilized: " << memoryBandwidthUtilized << "\n" << "\n";
+=======
+    std::cout << "% Memory bandwidth utilized: " << memoryBandwidthUtilized << "\n"
+              << "\n";
+>>>>>>> be27bef4f90242a0016d6f7ba2a99e9eb2c1a14f
 
     // now invoke the cblas method to compute the matrix-vector multiplye
     reference_dgemv(n, Acopy, Xcopy, Ycopy);
