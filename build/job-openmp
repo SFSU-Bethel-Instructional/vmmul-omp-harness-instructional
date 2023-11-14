@@ -1,0 +1,41 @@
+#!/bin/bash -l
+#SBATCH --constraint=cpu
+#SBATCH --cpus-per-task=1
+#SBATCH --qos=interactive
+#SBATCH --nodes=1
+#SBATCH --time=00:04:00
+#SBATCH --job-name=job-openmp
+#SBATCH --output=job-openmp.o%j
+#SBATCH --error=job-openmp.e%j
+
+# set some openmp variables: 
+# OMP_PLACES=threads maps OpenMP threads to hardware threads
+# OMP_PROC_BIND=spread binds threads as evenly as possible
+#
+# see https://docs.nersc.gov/jobs/affinity/ for more information
+
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+# iterate over some number of threads. 
+
+# Note: only OpenMP codes have interaction with the OMP_NUM_THREADS env variable, 
+# non-OpenMP jobs are not affected 
+
+# make use of the OMP_SCHEDULE environment variable to set the thread scheduling 
+# algorithm. 
+# the default scheduling algorithm is static
+# export OMP_SCHEDULE=static
+# export OMP_SCHEDULE=dynamic
+
+for t in 1 4 16 64
+   do
+   export OMP_NUM_THREADS=$t
+   echo "OMP_NUM_THREASDS = " $OMP_NUM_THREADS
+   ./benchmark-openmp
+#   srun -n 1  ./benchmark-openmp  # fall 2023, don't use srun to launch non-MPI jobs
+# don't use --cpu-bind=threads on KNL when P % 272 != 0
+# see https://docs.nersc.gov/jobs/affinity/#slurm-cpu-bind-flag
+#   srun -n 1 --cpu-bind=threads ./benchmark-openmp
+done
+
