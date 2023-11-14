@@ -113,11 +113,12 @@ int main(int argc, char **argv)
     double accesses = n;
 
     std::cout << "Time elapsed:"
-              << " " << duration << "/n";
+              << " " << duration << "\n";
 
-    std::cout << "MFLOP/s: " << mflops;
+    std::cout << "MFLOP/s: " << mflops << "\n";
 
-    std::cout << "% Memory bandwidth utilized: " << memoryBandwidthUtilized;
+    std::cout << "% Memory bandwidth utilized: " << memoryBandwidthUtilized << "\n"
+              << "\n";
 
     // now invoke the cblas method to compute the matrix-vector multiplye
     reference_dgemv(n, Acopy, Xcopy, Ycopy);
