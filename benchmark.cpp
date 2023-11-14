@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     double accesses = n;
 
     std::cout << "Time elapsed:"
-              << " " << duration;
+              << " " << duration << "/n";
 
     std::cout << "MFLOP/s: " << mflops;
 
