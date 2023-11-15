@@ -108,9 +108,7 @@ int main(int argc, char **argv)
 
     double bytes = n * sizeof(uint64_t);
 
-    double memoryBandwidthUtilized = ((((bytes / 1e9) / duration) / capacity) *>
-
-    double accesses = n;
+    double memoryBandwidthUtilized = (((bytes / 1e9) / duration) / capacity);
 
     std::cout << "Time elapsed:"
               << " " << duration << "\n";
