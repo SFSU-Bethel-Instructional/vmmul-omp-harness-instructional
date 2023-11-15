@@ -1,1 +1,8 @@
 /global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:12:1: note: ***** Analysis failed with vector mode VOID
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:17:25: missed: couldn't vectorize loop
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:25:35: missed: not vectorized: complicated access pattern.
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:23:34: optimized: loop vectorized using 32 byte vectors
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:23:34: optimized: loop vectorized using 16 byte vectors
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:15:6: note: vectorized 1 loops in function.
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:29:1: note: ***** Analysis failed with vector mode V4DF
+/global/homes/o/omard75/vmmul-omp-harness-instructional/dgemv-vectorized.cpp:29:1: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DF
