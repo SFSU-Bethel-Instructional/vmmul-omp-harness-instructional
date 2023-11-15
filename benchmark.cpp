@@ -24,7 +24,7 @@ void reference_dgemv(int n, double *A, double *x, double *y)
   double alpha = 1.0, beta = 1.0;
   int lda = n, incx = 1, incy = 1;
   // cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, n, n, n, alpha, A, >
-  cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, alpha, A, lda, x, incx, beta, >
+  cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, alpha, A, lda, x, incx, beta, y, incy);
 }
 
 void fill(double *p, int n)
