@@ -23,8 +23,8 @@ void reference_dgemv(int n, double *A, double *x, double *y)
 {
   double alpha = 1.0, beta = 1.0;
   int lda = n, incx = 1, incy = 1;
-  // cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, n, n, n, alpha, A, n, B, n, 1., C, n);
-  cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, alpha, A, lda, x, incx, beta, y, incy);
+  // cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, n, n, n, alpha, A, >
+  cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, alpha, A, lda, x, incx, beta, >
 }
 
 void fill(double *p, int n)
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 
   int n_problems = test_sizes.size();
 
-  // preallocate memory buffers for all problems: assume the last number in test_sizes is the largest
+  // preallocate memory buffers for all problems: assume the last number in tes>
 
   // allocate memory for 2 NxN matrices and 4 Nx1 vectors
 
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
     // call the method to do the work
     my_dgemv(n, A, X, Y);
 
-    // insert end timer code here, and print out the elapsed time for this problem size
+    // insert end timer code here, and print out the elapsed time for this prob>
     auto end = std::chrono::high_resolution_clock::now();
 
     double duration = std::chrono::duration<double>(end - start).count();
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 
     double bytes = n * sizeof(uint64_t);
 
-    double memoryBandwidthUtilized = ((((bytes / 1e9) / duration) / capacity) * 100) * 1e9; // % of memory bandwidth utilized
+    double memoryBandwidthUtilized = ((((bytes / 1e9) / duration) / capacity) *>
 
     double accesses = n;
 
