@@ -13,7 +13,6 @@ const char* dgemv_desc = "OpenMP dgemv.";
  */
 
 void my_dgemv(int n, double* A, double* x, double* y) {
-
    #pragma omp parallel
    {
       int nthreads = omp_get_num_threads();
@@ -27,4 +26,3 @@ void my_dgemv(int n, double* A, double* x, double* y) {
    // nthreads and thread_id so as to not taint your timings
 
 }
-
